@@ -9,6 +9,11 @@ variable "vpc_cidr" {
     type = string
 }
 
+variable "region"{
+    description = "the aws region to deploy the resources"
+    type = string
+}
+
 variable "pub_sub1_cidr" {
     description = "value for the public subnet 1 cidr"
     type = string

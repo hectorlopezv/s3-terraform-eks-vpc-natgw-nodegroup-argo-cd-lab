@@ -19,5 +19,5 @@ module "VPC" {
   pub_sub2_cidr = var.pub_sub2_cidr
   pri_sub3_cidr = var.pri_sub3_cidr
   pri_sub4_cidr = var.pri_sub4_cidr
-
+  region = var.region
 }
