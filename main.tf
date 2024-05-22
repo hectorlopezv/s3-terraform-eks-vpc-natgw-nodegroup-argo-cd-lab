@@ -1,3 +1,4 @@
+#Mock t2.micro resource
 resource "aws_instance" "app_server_amazon_linux_2023" {
 
     ami = "ami-0bb84b8ffd87024d8"
@@ -7,4 +8,16 @@ resource "aws_instance" "app_server_amazon_linux_2023" {
     tags = {
       Name = var.instance_name
     }
+}
+
+#Magic happens for argoCd, EKS AWS
+module "VPC" {
+  source = "./modules/vpc"
+  project_name = var.project_name
+  vpc_cidr = var.vpc_cidr
+  pub_sub1_cidr = var.pub_sub1_cidr
+  pub_sub2_cidr = var.pub_sub2_cidr
+  pri_sub3_cidr = var.pri_sub3_cidr
+  pri_sub4_cidr = var.pri_sub4_cidr
+
 }
