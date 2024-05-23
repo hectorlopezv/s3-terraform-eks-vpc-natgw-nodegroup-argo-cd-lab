@@ -15,7 +15,7 @@ output "PRI_SUB3_ID" {
     value =  aws_subnet.pri_sub3.id
 }
 output "PUB_SUB4_ID" {
-    value =  aws_subnet.pri_sub4
+    value =  aws_subnet.pri_sub4.id
 }
 
 output "IGW_ID" {

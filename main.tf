@@ -21,3 +21,14 @@ module "VPC" {
   pri_sub4_cidr = var.pri_sub4_cidr
   region = var.region
 }
+
+
+module "NAT-GTW"{
+  source = "./modules/nat-gtw"
+  pub_sub1_id = module.VPC.PUB_SUB1_ID
+  pri_sub3_id = module.VPC.PRI_SUB3_ID
+  pri_sub4_id = module.VPC.PUB_SUB4_ID
+  pub_sub2_id = module.VPC.PUB_SUB2_ID
+  igw_id = module.VPC.IGW_ID
+  vpc_id = module.VPC.VPC_ID
+}
