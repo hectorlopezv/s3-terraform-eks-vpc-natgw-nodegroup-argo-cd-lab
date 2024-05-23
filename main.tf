@@ -22,7 +22,7 @@ module "VPC" {
   region = var.region
 }
 
-
+# nat gatweway for prive subnets and elastic ip
 module "NAT-GTW"{
   source = "./modules/nat-gtw"
   pub_sub1_id = module.VPC.PUB_SUB1_ID
@@ -31,4 +31,10 @@ module "NAT-GTW"{
   pub_sub2_id = module.VPC.PUB_SUB2_ID
   igw_id = module.VPC.IGW_ID
   vpc_id = module.VPC.VPC_ID
+}
+
+# IAM roles for EKS service
+module "IAM"{
+  source = "./modules/iam"
+  project_name = var.project_name
 }
