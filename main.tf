@@ -27,7 +27,7 @@ module "NAT-GTW"{
   source = "./modules/nat-gtw"
   pub_sub1_id = module.VPC.PUB_SUB1_ID
   pri_sub3_id = module.VPC.PRI_SUB3_ID
-  pri_sub4_id = module.VPC.PUB_SUB4_ID
+  pri_sub4_id = module.VPC.PRI_SUB4_ID
   pub_sub2_id = module.VPC.PUB_SUB2_ID
   igw_id = module.VPC.IGW_ID
   vpc_id = module.VPC.VPC_ID
@@ -37,4 +37,26 @@ module "NAT-GTW"{
 module "IAM"{
   source = "./modules/iam"
   project_name = var.project_name
+}
+
+# EKS cluster
+
+module "EKS" {
+  source = "./modules/eks"
+  project_name = var.project_name
+  eks_cluster_role_Arn = module.IAM.eks_cluster_role_arn
+  pub_sub1_id = module.VPC.PUB_SUB1_ID
+  pub_sub2_id = module.VPC.PUB_SUB2_ID
+  pri_sub_3_id = module.VPC.PRI_SUB3_ID
+  pri_sub_4_id = module.VPC.PRI_SUB4_ID
+  depends_on = [module.VPC, module.IAM]
+}
+
+# EKS node group
+module "EKS_NODE_GROUP" {
+  source = "./modules/eks-node-group"
+  eks_cluster_name = module.EKS.eks_cluster_name
+  pri_sub_3_id = module.VPC.PRI_SUB3_ID
+  pri_sub_4_id = module.VPC.PRI_SUB4_ID
+  node_group_arn = module.IAM.eks_node_group_role_arn
 }
